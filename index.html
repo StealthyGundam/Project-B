@@ -59,7 +59,7 @@
 
 <script>
   // CET = UTC+1
-  const revealTimeCET = new Date(Date.UTC(2025, 11, 19, 20, 0, 0)).getTime();
+  const revealTimeCET = new Date(Date.UTC(2025, 11, 19, 15, 0, 0)).getTime();
 
   const countdownElement = document.getElementById("countdown");
   const contentElement = document.getElementById("content");
@@ -71,8 +71,8 @@
     if (remaining <= 0) {
       // Countdown expired, show MGRS location
       contentElement.innerHTML = `
-        <div class="mgrs-title">MGRS LOCATION</div>
-        <div class="mgrs-coords">32UQA 09414 10536</div>
+        <div class="mgrs-title">LOCATION</div>
+        <div class="mgrs-coords">Look for a sign where the heros park</div>
       `;
       clearInterval(timerInterval); // stop updating
     } else {
