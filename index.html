@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Countdown</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 2vh 2vw;
+      background-color: #000; /* black background */
+      color: #fff;
+    }
+    h1 {
+      color: #ff0000; /* red text */
+      font-size: 10vw; /* fit to screen width */
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+    p {
+      font-size: 1.2rem;
+      line-height: 1.5rem;
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+    .countdown {
+      font-size: 12vw; /* countdown fits screen */
+      color: #ffff00; /* yellow */
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+    .mgrs-title {
+      color: #00ff00; /* green */
+      font-size: 5vw;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    .mgrs-coords {
+      color: #ffff00; /* yellow */
+      font-size: 6vw;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div id="content">
+  <h1>OFFICIAL NOTICE OF YOUR GIFT</h1>
+  <p>
+    Do not disclose any information in this message. You may only announce that you received a QR code and act like it is normal.<br><br>
+    No hints. No clues. No locations. Nothing about what you’ll receive will be disclosed until this countdown timer expires.<br><br>
+    Once the timer expires, part two of your side quest to claim your gift will be revealed, assuming it has not been stolen or traded.<br><br>
+    Place the QR code you scanned in your pocket and leave the rest of this package where it lies.<br><br>
+    Protect your gift and savor the suspense.
+  </p>
+  <div id="countdown" class="countdown">Loading...</div>
+</div>
+
+<script>
+  // CET = UTC+1
+  const revealTimeCET = new Date(Date.UTC(2025, 11, 19, 20, 0, 0)).getTime();
+
+  const countdownElement = document.getElementById("countdown");
+  const contentElement = document.getElementById("content");
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const remaining = revealTimeCET - now;
+
+    if (remaining <= 0) {
+      // Countdown expired, show MGRS location
+      contentElement.innerHTML = `
+        <div class="mgrs-title">MGRS LOCATION</div>
+        <div class="mgrs-coords">32UQA 09414 10536</div>
+      `;
+      clearInterval(timerInterval); // stop updating
+    } else {
+      const hours = Math.floor(remaining / (1000 * 60 * 60));
+      const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+
+      countdownElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
+    }
+  }
+
+  // Initial call
+  updateCountdown();
+  // Update every second
+  const timerInterval = setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
